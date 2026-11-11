@@ -30,11 +30,10 @@ float_round_trip = { cmd = "mojo -D ASSERT=all -I . test_float_roundtrip.mojo" }
 demo = { cmd = "mojo -I . reflection_demo.mojo" }
 
 [dependencies]
-# Pinned to a commit so it only moves when this rev is bumped, and so the
-# nightly canary can re-solve emberserde's build environment against a new
-# compiler (`pixi update mojo emberserde`) without also pulling new commits.
-emberserde = { git = "https://github.com/bgreni/EmberSerde.git", rev = "8a5cde9bb7e838cf1e8e6b753c5594ed612f2aa9" }
-mojo = ">=1.2.0.dev2026092805,<2"
+# Pin source and compiler together for dataframe_mojo integration. Compiled
+# Mojo packages must use the same compiler as their consumers.
+emberserde = { git = "https://github.com/randyzwitch/EmberSerde.git", rev = "d6ad7a9b9fcf4b070901865585f16f92686b2a3d" }
+mojo = "==1.3.0.dev2026111005"
 
 
 
@@ -46,7 +45,7 @@ version = "0.5.0"
 backend = { name = "pixi-build-mojo", version = ">=0.2.6,<0.3" }
 
 [package.host-dependencies]
-mojo-compiler = ">=1.2.0.dev2026092805,<2"
+mojo-compiler = "==1.3.0.dev2026111005"
 
 # The library imports emberserde throughout (`__init__`, `value`, `object`,
 # `array`, `lazy`, `schema`, `traits`, `_serde/`), so `mojo precompile`
@@ -54,9 +53,9 @@ mojo-compiler = ">=1.2.0.dev2026092805,<2"
 # at run time -- the workspace [dependencies] entry above only covers dev
 # tasks. Keep all three in sync, `rev` included.
 [package.build-dependencies]
-mojo-compiler = ">=1.2.0.dev2026092805,<2"
-emberserde = { git = "https://github.com/bgreni/EmberSerde.git", rev = "8a5cde9bb7e838cf1e8e6b753c5594ed612f2aa9" }
+mojo-compiler = "==1.3.0.dev2026111005"
+emberserde = { git = "https://github.com/randyzwitch/EmberSerde.git", rev = "d6ad7a9b9fcf4b070901865585f16f92686b2a3d" }
 
 [package.run-dependencies]
-mojo-compiler = ">=1.2.0.dev2026092805,<2"
-emberserde = { git = "https://github.com/bgreni/EmberSerde.git", rev = "8a5cde9bb7e838cf1e8e6b753c5594ed612f2aa9" }
+mojo-compiler = "==1.3.0.dev2026111005"
+emberserde = { git = "https://github.com/randyzwitch/EmberSerde.git", rev = "d6ad7a9b9fcf4b070901865585f16f92686b2a3d" }
