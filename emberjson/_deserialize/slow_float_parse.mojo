@@ -1,3 +1,4 @@
+# Modified for dataframe_mojo: Mojo 1.3 nightly API compatibility.
 from ._parser_helper import (
     `-`,
     `+`,
@@ -297,9 +298,8 @@ def parse_decimal(
         0, 0, False, p[] == `-`, StackArray[Byte, MAX_DIGITS](fill=0)
     )
 
-    @__parameter
     @always_inline
-    def consume_digits() raises DeserializationError:
+    def consume_digits() raises DeserializationError {mut p, mut answer}:
         while p.dist() > 0 and isdigit(p[]):
             if answer.num_digits < MAX_DIGITS:
                 answer.digits[answer.num_digits] = p[] - `0`

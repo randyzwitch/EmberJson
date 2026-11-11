@@ -1,6 +1,7 @@
+# Modified for dataframe_mojo: Mojo 1.3 nightly API compatibility.
 from ._serde.deserializer import from_json_bytes
 from .value import Value
-from std.hashlib import Hasher
+from std.hash import Hasher
 
 # The free function `serialize` is aliased below because `Lazy` declares a
 # method of the same name.

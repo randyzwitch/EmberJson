@@ -1,3 +1,4 @@
+# Modified for dataframe_mojo: Mojo 1.3 nightly API compatibility.
 from .value import Value
 from .traits import JsonValue
 from std.python import PythonObject, Python
@@ -173,8 +174,10 @@ struct Array(JsonValue, Sized):
     def to_list(self, out l: List[Value]):
         l = self._data.copy()
 
-    def to_python_object(self) raises -> PythonObject:
+    comptime ConversionToPythonErrorType = Error
+
+    def to_python_object(var self) raises -> PythonObject:
         var l = Python.list()
         for ref item in self._data:
-            l.append(item.to_python_object())
+            l.append(item.copy().to_python_object())
         return l

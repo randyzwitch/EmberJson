@@ -1,3 +1,4 @@
+# Modified for dataframe_mojo: Mojo 1.3 nightly API compatibility.
 from emberjson.utils import (
     CheckedPointer,
     BytePtr,
@@ -1141,10 +1142,9 @@ def minify(s: String, out out_str: String) raises:
     var end = ptr.unsafe_offset(s_len)
 
     @always_inline
-    @__parameter
     def _load_chunk(
         p: type_of(ptr), cond: Bool
-    ) -> SIMD[DType.uint8, SIMD8_WIDTH]:
+    ) {imm ptr, imm end} -> SIMD[DType.uint8, SIMD8_WIDTH]:
         if cond:
             return ptr.unsafe_load[width=SIMD8_WIDTH]()
         else:

@@ -1,3 +1,4 @@
+# Modified for dataframe_mojo: Mojo 1.3 nightly API compatibility.
 from .value import Value
 from std.collections import Dict, List
 from std.sys.intrinsics import unlikely
@@ -6,7 +7,7 @@ from ._deserialize import Parser
 from ._deserialize._errors import duplicate_key, expected_value
 from .utils import write_escaped_string
 from std.python import PythonObject, Python
-from std.hashlib import hash
+from std.hash import hash
 
 from emberserde.serialize import Serializer
 from emberserde.deserialize import Deserializer, SelfDescribingDeserializer
@@ -446,8 +447,10 @@ struct Object(JsonValue, Sized):
         for item in self.items():
             d[item.key] = item.value.copy()
 
-    def to_python_object(self) raises -> PythonObject:
+    comptime ConversionToPythonErrorType = Error
+
+    def to_python_object(var self) raises -> PythonObject:
         var d = Python.dict()
         for item in self.items():
-            d[PythonObject(item.key)] = item.value.to_python_object()
+            d[PythonObject(item.key)] = item.value.copy().to_python_object()
         return d

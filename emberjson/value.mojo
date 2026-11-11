@@ -1,3 +1,4 @@
+# Modified for dataframe_mojo: Mojo 1.3 nightly API compatibility.
 from .object import Object
 from .array import Array
 from .utils import (
@@ -61,7 +62,9 @@ struct Null(JsonValue, TrivialRegisterPassable):
     def write_repr_to(self, mut writer: Some[Writer]):
         writer.write("Null()")
 
-    def to_python_object(self) raises -> PythonObject:
+    comptime ConversionToPythonErrorType = Error
+
+    def to_python_object(var self) raises -> PythonObject:
         return {}
 
     def serialize(self, mut s: Some[Serializer]) raises SerializationError:
@@ -477,7 +480,9 @@ struct Value(JsonValue, Sized):
         # (`EmberJsonDeserializer`) declares `comptime Value = Value`.
         return rebind_var[Self](d.deserialize_any())
 
-    def to_python_object(self) raises -> PythonObject:
+    comptime ConversionToPythonErrorType = Error
+
+    def to_python_object(var self) raises -> PythonObject:
         if self.is_int():
             return PythonObject(self.int())
         elif self.is_uint():
@@ -491,9 +496,9 @@ struct Value(JsonValue, Sized):
         elif self.is_null():
             return PythonObject()
         elif self.is_object():
-            return self.object().to_python_object()
+            return self.object().copy().to_python_object()
         elif self.is_array():
-            return self.array().to_python_object()
+            return self.array().copy().to_python_object()
         else:
             abort("Unreachable: to_python_object")
 

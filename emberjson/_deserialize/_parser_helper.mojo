@@ -1,3 +1,4 @@
+# Modified for dataframe_mojo: Mojo 1.3 nightly API compatibility.
 from emberjson.utils import (
     BytePtr,
     CheckedPointer,
@@ -450,8 +451,7 @@ def copy_to_string[
     """
     var length = ptr_dist(start, end)
 
-    @__parameter
-    def decode_escaped() raises DeserializationError -> String:
+    def decode_escaped() raises DeserializationError {imm length, imm start, imm end, imm first_escape} -> String:
         # This will usually slightly overallocate if the string contains
         # escaped unicode
         var dest = List[UInt8](capacity=length)
