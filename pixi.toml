@@ -32,8 +32,8 @@ demo = { cmd = "mojo -I . reflection_demo.mojo" }
 [dependencies]
 # Pin source and compiler together for dataframe_mojo integration. Compiled
 # Mojo packages must use the same compiler as their consumers.
-emberserde = { git = "https://github.com/randyzwitch/EmberSerde.git", rev = "d6ad7a9b9fcf4b070901865585f16f92686b2a3d" }
-mojo = "==1.3.0.dev2026111005"
+emberserde = { git = "https://github.com/randyzwitch/EmberSerde.git", rev = "c1eece7ac48e5cbde3e41dbf856ba0da5d56064c" }
+mojo = "==1.3.0.dev2026112405"
 
 
 
@@ -45,7 +45,7 @@ version = "0.5.0"
 backend = { name = "pixi-build-mojo", version = ">=0.2.6,<0.3" }
 
 [package.host-dependencies]
-mojo-compiler = "==1.3.0.dev2026111005"
+mojo-compiler = "==1.3.0.dev2026112405"
 
 # The library imports emberserde throughout (`__init__`, `value`, `object`,
 # `array`, `lazy`, `schema`, `traits`, `_serde/`), so `mojo precompile`
@@ -53,9 +53,9 @@ mojo-compiler = "==1.3.0.dev2026111005"
 # at run time -- the workspace [dependencies] entry above only covers dev
 # tasks. Keep all three in sync, `rev` included.
 [package.build-dependencies]
-mojo-compiler = "==1.3.0.dev2026111005"
-emberserde = { git = "https://github.com/randyzwitch/EmberSerde.git", rev = "d6ad7a9b9fcf4b070901865585f16f92686b2a3d" }
+mojo-compiler = "==1.3.0.dev2026112405"
+emberserde = { git = "https://github.com/randyzwitch/EmberSerde.git", rev = "c1eece7ac48e5cbde3e41dbf856ba0da5d56064c" }
 
 [package.run-dependencies]
-mojo-compiler = "==1.3.0.dev2026111005"
-emberserde = { git = "https://github.com/randyzwitch/EmberSerde.git", rev = "d6ad7a9b9fcf4b070901865585f16f92686b2a3d" }
+mojo-compiler = "==1.3.0.dev2026112405"
+emberserde = { git = "https://github.com/randyzwitch/EmberSerde.git", rev = "c1eece7ac48e5cbde3e41dbf856ba0da5d56064c" }

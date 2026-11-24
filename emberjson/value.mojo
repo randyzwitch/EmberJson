@@ -359,7 +359,7 @@ struct Value(JsonValue, Sized):
         return self.isa[Null]()
 
     @always_inline
-    def get[T: Copyable](ref self) -> ref[self._data] T:
+    def get[T: Copyable](ref self) -> ref[self._data.unsafe_get[T]()] T:
         constrain_json_type[T]()
         return self._data.unsafe_get[T]()
 
@@ -382,7 +382,7 @@ struct Value(JsonValue, Sized):
         return Null()
 
     @always_inline
-    def string(ref self) -> ref[self._data] String:
+    def string(ref self) -> ref[self._data.unsafe_get[String]()] String:
         return self.get[String]()
 
     @always_inline
@@ -394,11 +394,11 @@ struct Value(JsonValue, Sized):
         return self.get[Bool]()
 
     @always_inline
-    def object(ref self) -> ref[self._data] Object:
+    def object(ref self) -> ref[self._data.unsafe_get[Object]()] Object:
         return self.get[Object]()
 
     @always_inline
-    def array(ref self) -> ref[self._data] Array:
+    def array(ref self) -> ref[self._data.unsafe_get[Array]()] Array:
         return self.get[Array]()
 
     def write_to(self, mut writer: Some[Writer]):
