@@ -1,3 +1,4 @@
+# Modified for dataframe_mojo: Mojo 1.3 nightly origin compatibility.
 from std.bit import count_trailing_zeros
 from std.memory.unsafe import pack_bits
 from .constants import ` `, `\n`, `\t`, `\r`, `\b`, `\f`, `"`, `\\`
@@ -186,9 +187,9 @@ struct PaddedBuffer(Movable):
         self._len = n
 
     @always_inline
-    def span(ref self) -> ByteView[origin_of(self._data)]:
+    def span(ref self) -> ByteView[type_of(self._data.unsafe_ptr()).origin]:
         """The logical input: `len` bytes, with readable NUL padding after."""
-        return Span[Byte, origin_of(self._data)](
+        return Span[Byte, type_of(self._data.unsafe_ptr()).origin](
             unsafe_ptr=self._data.unsafe_ptr(), length=self._len
         )
 
